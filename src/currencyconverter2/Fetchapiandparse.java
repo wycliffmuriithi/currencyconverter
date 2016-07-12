@@ -6,16 +6,25 @@ package currencyconverter2;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -31,29 +40,14 @@ import org.json.JSONObject;
  *
  * @author wyki
  */
-public class Currencyconverter2 {
+public class Fetchapiandparse {
     
     /**
      * @param args the command line arguments
      */    
     public static void main(String[] args) {
         // TODO code application logic here
-        
-        Currencyconverter2 obj1 = new Currencyconverter2 ();
-        
-        
-//        try{
-//            URL oracle = new URL("http://openexchangerates.org/api/latest.json?app_id=0f62edab50084331a7068ecf57021b2c");
-//            URLConnection yc = oracle.openConnection();
-//            BufferedReader in = new BufferedReader(new InputStreamReader(
-//                                    yc.getInputStream()));
-//            String inputLine;
-//            while ((inputLine = in.readLine()) != null) 
-//                System.out.println(inputLine);
-//            in.close();
-//        }catch (Exception ex){
-//            ex.printStackTrace();
-//        }
+       
     }
     
     //fetch data from the url
@@ -102,7 +96,11 @@ public class Currencyconverter2 {
            //parse the time stamp into an integer
             myjson = new JSONObject(respo);
             Integer stamptime = (Integer) myjson.get("timestamp");
-            writer.println("Time Stamp: " +stamptime);          
+            Date stamptimedate = new Date(stamptime * 1000L);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+            sdf.setTimeZone(TimeZone.getTimeZone("GMT+3"));
+            String formatteddate = sdf.format(stamptimedate);
+            writer.println("Time Stamp: " +formatteddate);          
             
            
             JSONObject mykeys = (JSONObject) myjson.get("rates");
@@ -119,6 +117,7 @@ public class Currencyconverter2 {
             String [] keysArray = keyList.toArray(new String[keyList.size()]);            
             
             
+            DecimalFormat df = new DecimalFormat("####0.00");
             //parse the exchange rates' values and currencies
             for (int i = 0; i < mykeys.length(); ++i){     
                
@@ -126,20 +125,21 @@ public class Currencyconverter2 {
                    
                }else if (!"KES".equals(keysArray[i])){
                     writer.print(keysArray[i]+": ");
+                    
                     try{
                         Double currencyvalue = (Double)mykeys.get(keysArray[i]);
-                        Double divisionvalue = 1.0 / (Double)mykeys.get("KES");
-                        Double exchangerate = currencyvalue * divisionvalue;
-                        writer.println(exchangerate);
+                        Double divisionvalue = (Double)mykeys.get("KES");
+                        Double exchangerate = divisionvalue / currencyvalue;
+                        writer.println(df.format(exchangerate));
                     }catch (Exception ex){                        
                         Integer currencyvalue = (Integer)mykeys.get(keysArray[i]);
-                        Double divisionvalue = 1.0 / (Double)mykeys.get("KES");
-                        Double exchangerate = (currencyvalue) * divisionvalue;
-                        writer.println(exchangerate);
+                        Double divisionvalue = (Double)mykeys.get("KES");
+                        Double exchangerate = (divisionvalue) / currencyvalue;
+                        writer.println(df.format(exchangerate));
                     }
                 }else{
                     writer.print("USSD: ");                    
-                    writer.println(1.0 / (Double)mykeys.get(keysArray[i]));                    
+                    writer.println( df.format((Double)mykeys.get(keysArray[i])));                    
                 }
             }
             
@@ -151,5 +151,20 @@ public class Currencyconverter2 {
         }
     }
     
+    public static boolean pingURL(String host){
+        try{
+            HttpClient client = new DefaultHttpClient();
+            HttpParams httpParameters = client.getParams();
+            HttpConnectionParams.setConnectionTimeout(httpParameters, 5000);
+            HttpConnectionParams.setSoTimeout(httpParameters, 5000);
+            HttpConnectionParams.setTcpNoDelay(httpParameters, true);
+            HttpGet request = new HttpGet();
+            request.setURI(new URI(host));
+            HttpResponse response = client.execute(request);
+            return true;
+        }catch (Exception ex){
+            return false;
+        }
+    }
    
 }
