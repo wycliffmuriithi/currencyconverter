@@ -7,6 +7,7 @@ package currencyconverter2;
 import static currencyconverter2.Fetchapiandparse.GroupResult;
 import static currencyconverter2.Fetchapiandparse.sendRequest;
 import static currencyconverter2.Fetchapiandparse.pingURL;
+import static currencyconverter2.Fetchapiandparse.parseCurrencies;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -239,13 +240,17 @@ public class Addcurrenciesfromfetchedapi extends javax.swing.JFrame {
             Scanner inFile =  new Scanner(new File("currencies.txt")).useDelimiter("\n"); 
             String timestamp = inFile.nextLine();
             ListModel all = jList2.getModel();
-            List<String> allvalues = new ArrayList<String>(); 
+           
+             PrintWriter writer = new PrintWriter("addedcurrencies.txt","UTF-8");
+             writer.println(timestamp);
             for(int i = 0; i < all.getSize(); i++){
-                allvalues.add((String) all.getElementAt(i));
+             
+                writer.print((String) all.getElementAt(i));
+                writer.print(",");
             }
-            PrintWriter writer = new PrintWriter("addedcurrencies.txt","UTF-8");
-            writer.println(timestamp);
-            writer.print(allvalues);
+           
+            
+            
             writer.close();
         }catch(IOException ex){
             ex.printStackTrace();
@@ -286,10 +291,12 @@ public class Addcurrenciesfromfetchedapi extends javax.swing.JFrame {
                 
                 
                 if (pingURL("http://openexchangerates.org/api/latest.json?app_id=0f62edab50084331a7068ecf57021b2c")){
-                String jsonresponse = new String();
+                String jsonresponse,jsoncurrencyname = new String();
                 jsonresponse = sendRequest("http://openexchangerates.org/api/latest.json?app_id=0f62edab50084331a7068ecf57021b2c");
+                jsoncurrencyname = sendRequest("http://openexchangerates.org/api/currencies.json?app_id=0f62edab50084331a7068ecf57021b2c");
                 try {
                     GroupResult(jsonresponse);
+                    parseCurrencies(jsoncurrencyname);
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(Addcurrenciesfromfetchedapi.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (UnsupportedEncodingException ex) {
@@ -313,7 +320,7 @@ public class Addcurrenciesfromfetchedapi extends javax.swing.JFrame {
         List<String> temps = new ArrayList<String>();
         try {
             
-            Scanner inFile1 = new Scanner(new File("currencies.txt")).useDelimiter("\n");           
+            Scanner inFile1 = new Scanner(new File("currencyname.txt")).useDelimiter("\n");           
             inFile1.nextLine();
             while (inFile1.hasNext()){
                 token = inFile1.next();

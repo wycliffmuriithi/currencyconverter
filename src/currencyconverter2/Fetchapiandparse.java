@@ -151,6 +151,27 @@ public class Fetchapiandparse {
         }
     }
     
+    public static void parseCurrencies(String response){
+        try{
+        JSONObject myjson = new JSONObject(response);
+        Iterator mykeys = myjson.keys();
+        List<String> keyslist = new ArrayList<String>();
+        PrintWriter write = new PrintWriter("currencyname.txt","UTF-8");
+        while(mykeys.hasNext()){
+            keyslist.add((String)mykeys.next());
+        }
+        String[] keysarray = keyslist.toArray(new String[keyslist.size()]);  
+        for(int i = 0; i < myjson.length(); i++){            
+            write.print(keysarray[i]);
+            write.print(" ");
+            write.println(myjson.get(keysarray[i]));
+        }
+        write.close();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    
     public static boolean pingURL(String host){
         try{
             HttpClient client = new DefaultHttpClient();

@@ -1,0 +1,172 @@
+CNY Chinese Yuan
+JPY Japanese Yen
+UGX Ugandan Shilling
+RON Romanian Leu
+TTD Trinidad and Tobago Dollar
+SHP Saint Helena Pound
+MOP Macanese Pataca
+BTC Bitcoin
+KGS Kyrgystani Som
+DJF Djiboutian Franc
+BTN Bhutanese Ngultrum
+ZAR South African Rand
+NOK Norwegian Krone
+ILS Israeli New Sheqel
+SYP Syrian Pound
+HTG Haitian Gourde
+YER Yemeni Rial
+UYU Uruguayan Peso
+XAU Gold (troy ounce)
+BBD Barbadian Dollar
+EEK Estonian Kroon
+FKP Falkland Islands Pound
+MWK Malawian Kwacha
+IDR Indonesian Rupiah
+PGK Papua New Guinean Kina
+XCD East Caribbean Dollar
+RWF Rwandan Franc
+NGN Nigerian Naira
+BSD Bahamian Dollar
+TMT Turkmenistani Manat
+HRK Croatian Kuna
+COP Colombian Peso
+GEL Georgian Lari
+DKK Danish Krone
+VUV Vanuatu Vatu
+FJD Fijian Dollar
+MVR Maldivian Rufiyaa
+IMP Manx pound
+AZN Azerbaijani Manat
+MNT Mongolian Tugrik
+MGA Malagasy Ariary
+WST Samoan Tala
+VEF Venezuelan Bolívar Fuerte
+KMF Comorian Franc
+GNF Guinean Franc
+SBD Solomon Islands Dollar
+BDT Bangladeshi Taka
+KWD Kuwaiti Dinar
+MMK Myanma Kyat
+TJS Tajikistani Somoni
+JOD Jordanian Dinar
+NZD New Zealand Dollar
+PAB Panamanian Balboa
+CVE Cape Verdean Escudo
+CLP Chilean Peso
+MDL Moldovan Leu
+KES Kenyan Shilling
+SRD Surinamese Dollar
+MUR Mauritian Rupee
+LRD Liberian Dollar
+SAR Saudi Riyal
+ARS Argentine Peso
+EGP Egyptian Pound
+INR Indian Rupee
+PYG Paraguayan Guarani
+TRY Turkish Lira
+CDF Congolese Franc
+BMD Bermudan Dollar
+OMR Omani Rial
+CUP Cuban Peso
+NIO Nicaraguan Córdoba
+GMD Gambian Dalasi
+UZS Uzbekistan Som
+ZMK Zambian Kwacha (pre-2013)
+CUC Cuban Convertible Peso
+GTQ Guatemalan Quetzal
+GGP Guernsey Pound
+EUR Euro
+NPR Nepalese Rupee
+NAD Namibian Dollar
+PHP Philippine Peso
+HUF Hungarian Forint
+USD United States Dollar
+LAK Laotian Kip
+XDR Special Drawing Rights
+SZL Swazi Lilangeni
+MTL Maltese Lira
+BND Brunei Dollar
+TZS Tanzanian Shilling
+SDG Sudanese Pound
+LSL Lesotho Loti
+KYD Cayman Islands Dollar
+LKR Sri Lankan Rupee
+MKD Macedonian Denar
+MXN Mexican Peso
+CAD Canadian Dollar
+AUD Australian Dollar
+ISK Icelandic Króna
+LYD Libyan Dinar
+SLL Sierra Leonean Leone
+PKR Pakistani Rupee
+ANG Netherlands Antillean Guilder
+THB Thai Baht
+SCR Seychellois Rupee
+LBP Lebanese Pound
+AED United Arab Emirates Dirham
+GHS Ghanaian Cedi
+ERN Eritrean Nakfa
+BOB Bolivian Boliviano
+ZMW Zambian Kwacha
+GIP Gibraltar Pound
+QAR Qatari Rial
+XPT Platinum Ounce
+BHD Bahraini Dinar
+IRR Iranian Rial
+BWP Botswanan Pula
+HNL Honduran Lempira
+CLF Chilean Unit of Account (UF)
+ALL Albanian Lek
+SEK Swedish Krona
+RSD Serbian Dinar
+MYR Malaysian Ringgit
+ETB Ethiopian Birr
+STD São Tomé and Príncipe Dobra
+BGN Bulgarian Lev
+XPD Palladium Ounce
+DOP Dominican Peso
+AMD Armenian Dram
+XPF CFP Franc
+JMD Jamaican Dollar
+KRW South Korean Won
+MRO Mauritanian Ouguiya
+JEP Jersey Pound
+LVL Latvian Lats
+BIF Burundian Franc
+CZK Czech Republic Koruna
+TND Tunisian Dinar
+ZWL Zimbabwean Dollar
+VND Vietnamese Dong
+PEN Peruvian Nuevo Sol
+DZD Algerian Dinar
+GBP British Pound Sterling
+MZN Mozambican Metical
+AWG Aruban Florin
+XOF CFA Franc BCEAO
+CHF Swiss Franc
+KZT Kazakhstani Tenge
+UAH Ukrainian Hryvnia
+RUB Russian Ruble
+BZD Belize Dollar
+TWD New Taiwan Dollar
+BAM Bosnia-Herzegovina Convertible Mark
+SGD Singapore Dollar
+BYR Belarusian Ruble (pre-2016)
+MAD Moroccan Dirham
+HKD Hong Kong Dollar
+LTL Lithuanian Litas
+XAG Silver (troy ounce)
+XAF CFA Franc BEAC
+KHR Cambodian Riel
+BYN Belarusian Ruble
+GYD Guyanaese Dollar
+BRL Brazilian Real
+AFN Afghan Afghani
+SVC Salvadoran Colón
+CRC Costa Rican Colón
+IQD Iraqi Dinar
+PLN Polish Zloty
+SOS Somali Shilling
+TOP Tongan Paʻanga
+AOA Angolan Kwanza
+KPW North Korean Won
