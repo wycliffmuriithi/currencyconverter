@@ -1,2 +1,2 @@
-Time Stamp: 2016-07-12 17:00:06 GMT+03:00
-EUR: 112.25,USSD: 101.23,GBP: 133.07,
+Time Stamp: 2016-07-13 07:00:05 GMT+03:00
+JPY Japanese Yen,BTC Bitcoin,UGX Ugandan Shilling,

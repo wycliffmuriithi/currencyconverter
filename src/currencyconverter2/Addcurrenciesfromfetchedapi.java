@@ -244,9 +244,11 @@ public class Addcurrenciesfromfetchedapi extends javax.swing.JFrame {
              PrintWriter writer = new PrintWriter("addedcurrencies.txt","UTF-8");
              writer.println(timestamp);
             for(int i = 0; i < all.getSize(); i++){
-             
-                writer.print((String) all.getElementAt(i));
-                writer.print(",");
+                String currencyname = (String) all.getElementAt(i);
+                
+                    writer.print(currencyname);
+                    writer.print(",");
+               
             }
            
             
