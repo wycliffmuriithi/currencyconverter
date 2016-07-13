@@ -1,2 +1,2 @@
 Time Stamp: 2016-07-13 07:00:05 GMT+03:00
-JPY Japanese Yen,BTC Bitcoin,UGX Ugandan Shilling,
+SYP Syrian Pound,NOK Norwegian Krone,BTN Bhutanese Ngultrum,DJF Djiboutian Franc,YER Yemeni Rial,
