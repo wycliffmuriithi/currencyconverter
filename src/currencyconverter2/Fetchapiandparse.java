@@ -138,7 +138,7 @@ public class Fetchapiandparse {
                         writer.println(df.format(exchangerate));
                     }
                 }else{
-                    writer.print("USSD: ");                    
+                    writer.print("USD: ");                    
                     writer.println( df.format((Double)mykeys.get(keysArray[i])));                    
                 }
             }

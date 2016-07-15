@@ -255,7 +255,7 @@ public class Addcurrenciesfromfetchedapi extends javax.swing.JFrame {
             
             writer.close();
         }catch(IOException ex){
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE); 
         }
          this.dispose();
     }//GEN-LAST:event_jButton1MouseClicked
@@ -288,8 +288,12 @@ public class Addcurrenciesfromfetchedapi extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            
+//        });
+        
+    }
+    public void run() {
                 
                 
                 if (pingURL("http://openexchangerates.org/api/latest.json?app_id=0f62edab50084331a7068ecf57021b2c")){
@@ -298,7 +302,8 @@ public class Addcurrenciesfromfetchedapi extends javax.swing.JFrame {
                 jsoncurrencyname = sendRequest("http://openexchangerates.org/api/currencies.json?app_id=0f62edab50084331a7068ecf57021b2c");
                 try {
                     GroupResult(jsonresponse);
-                    parseCurrencies(jsoncurrencyname);
+                    //Loads the currency names
+//                    parseCurrencies(jsoncurrencyname);
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(Addcurrenciesfromfetchedapi.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (UnsupportedEncodingException ex) {
@@ -308,14 +313,11 @@ public class Addcurrenciesfromfetchedapi extends javax.swing.JFrame {
                 
                 new Addcurrenciesfromfetchedapi().setVisible(true);
             }else{
-                   JOptionPane.showMessageDialog(null, "No Internet Access", "Warning", WIDTH);
+                   JOptionPane.showMessageDialog(null, "No Internet Access", "Warning", JOptionPane.WARNING_MESSAGE);
                    new Addcurrenciesfromfetchedapi().setVisible(true);
             }
             
         }
-        });
-        
-    }
     
     public String[] getCurrencies(){
         String token = "";

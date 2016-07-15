@@ -1,2 +1,2 @@
-Time Stamp: 2016-07-13 07:00:05 GMT+03:00
-SYP Syrian Pound,NOK Norwegian Krone,BTN Bhutanese Ngultrum,DJF Djiboutian Franc,YER Yemeni Rial,
+Time Stamp: 2016-07-15 11:09:15 GMT+03:00
+JPY Japanese Yen,UGX Ugandan Shilling,NGN Nigerian Naira,ZAR South African Rand Rand,

@@ -14,6 +14,7 @@ import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -55,6 +56,7 @@ public class Mainpage extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -82,10 +84,10 @@ public class Mainpage extends javax.swing.JFrame {
         jComboBox2.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
                 jComboBox2PopupMenuWillBecomeVisible(evt);
-            }
-            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
         });
         jComboBox2.addItemListener(new java.awt.event.ItemListener() {
@@ -125,7 +127,7 @@ public class Mainpage extends javax.swing.JFrame {
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                         .addGap(148, 148, 148)))
                 .addContainerGap())
         );
@@ -135,9 +137,9 @@ public class Mainpage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 7, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
@@ -191,13 +193,21 @@ public class Mainpage extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("Config");
+        jMenu1.setText("Add From Api");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu1MouseClicked(evt);
             }
         });
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Add Manually");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -238,7 +248,7 @@ public class Mainpage extends javax.swing.JFrame {
             jLabel5.setText(timestamp);
             jLabel3.setVisible(false);            
         }catch(IOException ex){
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE); 
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -302,9 +312,7 @@ public class Mainpage extends javax.swing.JFrame {
             
              DecimalFormat df = new DecimalFormat("####0.00");
             //generate table 
-            jLabel3.setVisible(true);
-            JTableHeader nf = new JTableHeader();
-            nf.setTable(jTable2);
+            jLabel3.setVisible(true);            
             DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
             columnheader[0] = "Currencies";
            for(int i = 1; i < columnheader.length; i++){
@@ -329,13 +337,14 @@ public class Mainpage extends javax.swing.JFrame {
            
             
         }catch(Exception ex){
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE); 
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
         // TODO add your handling code here:
-        new Addcurrenciesfromfetchedapi().setVisible(true);
+        Addcurrenciesfromfetchedapi gog = new Addcurrenciesfromfetchedapi();
+        gog.run();
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
@@ -369,8 +378,9 @@ public class Mainpage extends javax.swing.JFrame {
 
 
                     }
+                jLabel5.setText(timestamp);
             }catch(Exception ex){
-                 ex.printStackTrace();
+                 JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE); 
                 }
         }else{
             try{
@@ -388,11 +398,18 @@ public class Mainpage extends javax.swing.JFrame {
 
 
                     }
+                jLabel5.setText(timestamp);
             }catch(Exception ex){
-                 ex.printStackTrace();
+                 JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE); 
                 }
         }
     }//GEN-LAST:event_jComboBox2PopupMenuWillBecomeVisible
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        // TODO add your handling code here:
+        Addcurrenciesmanually ggf = new Addcurrenciesmanually();
+        ggf.run();
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -453,6 +470,7 @@ public class Mainpage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
