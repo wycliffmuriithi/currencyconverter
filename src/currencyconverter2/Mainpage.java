@@ -6,6 +6,10 @@ package currencyconverter2;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -243,7 +247,7 @@ public class Mainpage extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         try{
-            Scanner inFile = new Scanner(new File("currencies.txt")).useDelimiter("\n");
+            Scanner inFile = new Scanner(new File("addedcurrencies.txt")).useDelimiter("\n");
             String timestamp = inFile.nextLine();           
             jLabel5.setText(timestamp);
             jLabel3.setVisible(false);            
@@ -258,6 +262,17 @@ public class Mainpage extends javax.swing.JFrame {
             String startvalue = (String)jComboBox2.getSelectedItem();
             String[] a = startvalue.split(" ");             
            
+            Path current = Paths.get("");
+            Path dir =current.toAbsolutePath();
+            List<File> files = new ArrayList<>();
+            try(DirectoryStream<Path> stream = Files.newDirectoryStream(dir,"2016*")){
+                for (Path entry: stream){
+                    files.add(entry.toFile());
+                }
+               
+            }catch(IOException ex){
+                JOptionPane.showMessageDialog(rootPane,"Could not Find "+ dir , ex.getMessage(), JOptionPane.WARNING_MESSAGE);      
+            }
             
             Scanner inFile = new Scanner(new File("currencies.txt")).useDelimiter(":|\n");
             inFile.nextLine();

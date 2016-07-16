@@ -92,7 +92,7 @@ public class Fetchapiandparse {
         JSONObject myjson;
         try 
         {
-            PrintWriter writer = new PrintWriter("currencies.txt","UTF-8");
+            
            //parse the time stamp into an integer
             myjson = new JSONObject(respo);
             Integer stamptime = (Integer) myjson.get("timestamp");
@@ -100,6 +100,7 @@ public class Fetchapiandparse {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
             sdf.setTimeZone(TimeZone.getTimeZone("GMT+3"));
             String formatteddate = sdf.format(stamptimedate);
+            PrintWriter writer = new PrintWriter("currencies.txt","UTF-8");
             writer.println("Time Stamp: " +formatteddate);          
             
            

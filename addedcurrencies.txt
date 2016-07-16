@@ -1,2 +1,2 @@
-Time Stamp: 2016-07-15 11:09:15 GMT+03:00
-JPY Japanese Yen,UGX Ugandan Shilling,NGN Nigerian Naira,ZAR South African Rand Rand,
+Time Stamp: 2016-07-16 11:01:16 GMT+03:00
+CNY RON BTC,RON BTC Yuan,BTC Yuan Romanian,
