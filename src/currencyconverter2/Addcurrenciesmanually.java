@@ -437,9 +437,9 @@ public class Addcurrenciesmanually extends javax.swing.JFrame {
               // writer3.println("Time Stamp: "+timeStamp+" GMT+03:00");
                writer2.println("Time Stamp: "+timeStamp+" GMT+03:00");
                writer.println("Time Stamp: "+timeStamp+" GMT+03:00");
-               Set<String> currenydetails = new HashSet<>();
-               currenydetails.addAll(currencydetails);
-               String[] arrcurrencydetails = currenydetails.toArray(new String[currenydetails.size()]); 
+//               Set<String> currenydetails = new HashSet<>();
+//               currenydetails.addAll(currencydetails);
+//               String[] arrcurrencydetails = currenydetails.toArray(new String[currenydetails.size()]); 
                 for(int i = 0; i < rows; i++){   
                     /**
                      * Write currency code, currency country and currency name to
@@ -448,16 +448,14 @@ public class Addcurrenciesmanually extends javax.swing.JFrame {
                      *   per session
                      */
                     String name, country;
-                    for (int j = 0; j < arrcurrencydetails.length; j++){
-                        if (currenycode[i].equals(arrcurrencydetails[j])){
-                                country = arrcurrencydetails[j + 1];
-                                
-                                System.out.println( arrcurrencydetails[i]);
-                                writer.print(arrcurrencydetails[j]);
+                    for (int j = 0; j < currencydetails.size(); j++){
+                        if (currenycode[i].equals(currencydetails.get(j))){
+                                country = currencydetails.get(j + 1);
+                                writer.print(currenycode[i]);
                                 writer.print(" ");
                                 writer.print(country);
                                 writer.print(" ");
-                                name = arrcurrencydetails[j + 2];
+                                name = currencydetails.get(j + 2);
                                 writer.print(name);
                                 writer.print(",");
                         }
