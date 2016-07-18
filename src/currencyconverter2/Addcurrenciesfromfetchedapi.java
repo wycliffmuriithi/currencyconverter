@@ -325,7 +325,7 @@ public class Addcurrenciesfromfetchedapi extends javax.swing.JFrame {
         try {
             
             Scanner inFile1 = new Scanner(new File("currencyname.txt")).useDelimiter("\n");           
-            inFile1.nextLine();
+           // inFile1.nextLine();
             while (inFile1.hasNext()){
                 token = inFile1.next();
                 temps.add(token);

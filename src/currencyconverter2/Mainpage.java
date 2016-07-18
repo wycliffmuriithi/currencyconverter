@@ -5,6 +5,7 @@
 package currencyconverter2;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -299,6 +302,7 @@ public class Mainpage extends javax.swing.JFrame {
             }
             String[] arrdatafromfile = datafromfile.toArray(new String[datafromfile.size()]);
             jList1.setListData(arrdatafromfile);
+            
         }catch(Exception ex){
             JOptionPane.showMessageDialog(rootPane, ex.getMessage()+" for the added timestamps file", "Warning", JOptionPane.WARNING_MESSAGE);
         }
@@ -354,7 +358,7 @@ public class Mainpage extends javax.swing.JFrame {
                 valuesarraykey[i] = gt[0];
             }
             
-            
+            timestampDiff("Time Stamp: 2016-07-18 12:45:04 GMT+03:00","Time Stamp: 2016-07-18 12:45:04 GMT+03:00");
             
             
             /**this captures the money at hand you currently have 
@@ -508,11 +512,61 @@ public class Mainpage extends javax.swing.JFrame {
         return value+" not found";
     }
     
+  /*
+   * blueprint for storing data in an associative format
+   */      
   class Fetching{  
    String first;
    String second;
   }
    
+  public void timestampDiff(String timestamp1, String timestamp2){
+        try {
+            /**
+             * fetch the currencies currently working on
+             */
+            
+            DefaultComboBoxModel cmbd = new DefaultComboBoxModel();
+            List<String> activecurrencies = new ArrayList<>();
+            for (int i = 0; i < cmbd.getSize(); i++){
+                activecurrencies.add((String)cmbd.getElementAt(i));
+            }
+            Scanner inFile = new Scanner(new File("timestamped.txt")).useDelimiter("\n");
+           /**
+            * identify the start timestamp and the stop timestamp in the file
+            */  
+            int j = 0;
+            while(inFile.hasNext()){
+                String tempvalue = inFile.next();
+                
+                                   
+
+               if (timestamp1.equals(tempvalue)){  
+                    System.out.println("not");
+                   while(tempvalue != timestamp2){
+                       tempvalue = inFile.next();  
+                        for (int i = 0; i < activecurrencies.size(); i++){
+                            String tempcurrency = activecurrencies.get(i);
+                            String[] arrtempcurrency = tempcurrency.split(" ");
+                            String[] arrtempvalue = tempvalue.split(":");
+                            if(arrtempvalue[0].equals(arrtempcurrency[0])){
+                                //value found in file that's in the current currencies too 
+                                System.out.println(arrtempvalue[1]);
+                                 System.out.println("inside");
+                            }
+                        }
+                   }
+               }else{
+                   continue;
+               }
+               System.out.println("outside");
+               break;
+            }
+           
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Mainpage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+  }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
