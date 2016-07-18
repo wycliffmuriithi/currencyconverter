@@ -72,7 +72,7 @@ public AutoCompletion(final JComboBox comboBox) {
     // Handle initially selected object
     Object selected = comboBox.getSelectedItem();
     if (selected!=null) setText(selected.toString());
-    highlightCompletedText(0);
+    highlightCompletedText(0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 }
 
 public static void enable(JComboBox comboBox) {

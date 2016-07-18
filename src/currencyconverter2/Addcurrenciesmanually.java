@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,6 +19,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
@@ -177,6 +180,11 @@ public class Addcurrenciesmanually extends javax.swing.JFrame {
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -433,14 +441,14 @@ public class Addcurrenciesmanually extends javax.swing.JFrame {
                
                String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()); 
                PrintWriter writer2 = new PrintWriter("currencies.txt","UTF-8");  
+               PrintWriter permwriter = new PrintWriter(new FileWriter("timestamped.txt",true));
                
               // writer3.println("Time Stamp: "+timeStamp+" GMT+03:00");
                writer2.println("Time Stamp: "+timeStamp+" GMT+03:00");
+               permwriter.println("Time Stamp: "+timeStamp+" GMT+03:00");
                writer.println("Time Stamp: "+timeStamp+" GMT+03:00");
-//               Set<String> currenydetails = new HashSet<>();
-//               currenydetails.addAll(currencydetails);
-//               String[] arrcurrencydetails = currenydetails.toArray(new String[currenydetails.size()]); 
-                for(int i = 0; i < rows; i++){   
+               
+             
                     /**
                      * Write currency code, currency country and currency name to
                      *   addedcurrencies.txt
@@ -448,20 +456,12 @@ public class Addcurrenciesmanually extends javax.swing.JFrame {
                      *   per session
                      */
                     String name, country;
-                    for (int j = 0; j < currencydetails.size(); j++){
-                        if (currenycode[i].equals(currencydetails.get(j))){
-                                country = currencydetails.get(j + 1);
-                                writer.print(currenycode[i]);
-                                writer.print(" ");
-                                writer.print(country);
-                                writer.print(" ");
-                                name = currencydetails.get(j + 2);
-                                writer.print(name);
-                                writer.print(",");
-                        }
+                    for (int j = 0; j < rows; j++){
+                        writer.print(writetoFile(currenycode[j]));
+                        writer.print(",");
                     }
                                         
-                }
+             
                 for(int k = 0; k < rows; k++){
                       /**
                        * Write currency code and currency value to currencies.txt
@@ -470,26 +470,37 @@ public class Addcurrenciesmanually extends javax.swing.JFrame {
                             double tempvalue = Double.parseDouble(currenyvalue[k]);
                             if(tempvalue == 1.0){
                                 writer2.print(currenycode[k]);
+                                permwriter.print(currenycode[k]);
                                 writer2.print(": ");
+                                permwriter.print(": ");
                                 writer2.println(basecurrenyvalue[k]);
+                                permwriter.println(basecurrenyvalue[k]);
                             }else{                                
                                 double tempbasevalue = Double.parseDouble(basecurrenyvalue[k]);
                                 double fvalue = tempbasevalue / tempvalue;
                                 writer2.print(currenycode[k]);
+                                permwriter.print(currenycode[k]);
                                 writer2.print(": ");
+                                permwriter.print(": ");
                                 writer2.println(fvalue);
+                                permwriter.println(fvalue);
                             }
                           
                     }
                 
                 writer.close();
                 writer2.close();
+                permwriter.close();
             }catch(IOException ex){
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE); 
             }
           this.dispose();
         
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -527,7 +538,23 @@ public class Addcurrenciesmanually extends javax.swing.JFrame {
     public void run() {
                 new Addcurrenciesmanually().setVisible(true);
             }
-    
+    public String writetoFile(String currencycode){
+        try {
+            Scanner inFile = new Scanner(new File("currencyname.txt")).useDelimiter("\n");
+            String datafromfile;
+            
+            while(inFile.hasNext()){
+                datafromfile=(String)inFile.next();
+                String[] splitname = datafromfile.split(" ");
+                if (splitname[0].equals(currencycode)){
+                   return datafromfile;
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE); 
+        }
+        return "Currency not Found";
+    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

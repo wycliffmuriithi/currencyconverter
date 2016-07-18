@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -304,10 +305,9 @@ public class Addcurrenciesfromfetchedapi extends javax.swing.JFrame {
                     GroupResult(jsonresponse);
                     //Loads the currency names
 //                    parseCurrencies(jsoncurrencyname);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(Addcurrenciesfromfetchedapi.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (UnsupportedEncodingException ex) {
-                    Logger.getLogger(Addcurrenciesfromfetchedapi.class.getName()).log(Level.SEVERE, null, ex);
+               
+                } catch (IOException ex) {
+                     Logger.getLogger(Addcurrenciesfromfetchedapi.class.getName()).log(Level.SEVERE, null, ex);                
                 }   
                 
                 

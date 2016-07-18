@@ -13,12 +13,15 @@ import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -53,6 +56,9 @@ public class Mainpage extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -86,12 +92,12 @@ public class Mainpage extends javax.swing.JFrame {
 
         jComboBox2.setMaximumSize(new java.awt.Dimension(170, 20));
         jComboBox2.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-            }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
                 jComboBox2PopupMenuWillBecomeVisible(evt);
+            }
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
         });
         jComboBox2.addItemListener(new java.awt.event.ItemListener() {
@@ -108,6 +114,10 @@ public class Mainpage extends javax.swing.JFrame {
                 jButton1MouseClicked(evt);
             }
         });
+
+        jScrollPane3.setViewportView(jList1);
+
+        jLabel1.setText("Available Timestamps:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,9 +141,16 @@ public class Mainpage extends javax.swing.JFrame {
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                        .addGap(148, 148, 148)))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(148, 148, 148))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,7 +167,10 @@ public class Mainpage extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(2, 2, 2)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -250,9 +270,37 @@ public class Mainpage extends javax.swing.JFrame {
             Scanner inFile = new Scanner(new File("addedcurrencies.txt")).useDelimiter("\n");
             String timestamp = inFile.nextLine();           
             jLabel5.setText(timestamp);
-            jLabel3.setVisible(false);            
+            jLabel3.setVisible(false);  
+            
+        }catch(NoSuchElementException ex){            
+            JOptionPane.showMessageDialog(rootPane,"No Currencies Found: \n Add New Currencies using 'Add From Api' or 'Add Manually'", "Warning", JOptionPane.INFORMATION_MESSAGE);
         }catch(IOException ex){
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE); 
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage() +" for the timestamp label", "Warning", JOptionPane.WARNING_MESSAGE); 
+        }
+        
+        /**
+         * load the available timestamps into the jlist
+         */
+        try{
+            Scanner inFile2 = new Scanner(new File("timestamped.txt")).useDelimiter("\n");
+            List<String> datafromfile = new ArrayList<>();
+            String dataitem;
+           
+            while(inFile2.hasNext()){
+                dataitem = inFile2.next();
+                String[] g = dataitem.split(":");
+                if (g[0].startsWith("Time")){
+                    
+                    datafromfile.add(dataitem);                   
+                }else{
+                   
+                    continue;
+                }
+            }
+            String[] arrdatafromfile = datafromfile.toArray(new String[datafromfile.size()]);
+            jList1.setListData(arrdatafromfile);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage()+" for the added timestamps file", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -262,17 +310,7 @@ public class Mainpage extends javax.swing.JFrame {
             String startvalue = (String)jComboBox2.getSelectedItem();
             String[] a = startvalue.split(" ");             
            
-            Path current = Paths.get("");
-            Path dir =current.toAbsolutePath();
-            List<File> files = new ArrayList<>();
-            try(DirectoryStream<Path> stream = Files.newDirectoryStream(dir,"2016*")){
-                for (Path entry: stream){
-                    files.add(entry.toFile());
-                }
-               
-            }catch(IOException ex){
-                JOptionPane.showMessageDialog(rootPane,"Could not Find "+ dir , ex.getMessage(), JOptionPane.WARNING_MESSAGE);      
-            }
+            
             
             Scanner inFile = new Scanner(new File("currencies.txt")).useDelimiter(":|\n");
             inFile.nextLine();
@@ -304,7 +342,9 @@ public class Mainpage extends javax.swing.JFrame {
             }
             String[] valuesarray, valuesarraykey, columnheader;
             int dta = cbm.getSize();
+            //store the values of the currency
             valuesarray = new String[dta];
+            //store the currency code
             valuesarraykey = new String[dta];
             columnheader = new String[dta+1];
             for (int i = 0; i < dataincbm.size(); i++){
@@ -314,14 +354,11 @@ public class Mainpage extends javax.swing.JFrame {
                 valuesarraykey[i] = gt[0];
             }
             
-            /**
-             * fetch the rates for the selected currencies
+            
+            
+            
+            /**this captures the money at hand you currently have 
              */
-            String moneyvaluecurrency = findString(a[0], currencydetails);
-            
-            
-            //this captures the money value you currently have using
-            //moneyvaluecurrency as the unit
             String z = jTextField1.getText();
             double y = Double.parseDouble(z);
             
@@ -331,7 +368,7 @@ public class Mainpage extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
             columnheader[0] = "Currencies";
            for(int i = 1; i < columnheader.length; i++){
-               columnheader[i] = valuesarraykey[i-1];
+               columnheader[i] = valuesarraykey[i-1];//populate columnheader with currency codes for the table headers
            }
             for (int i = 0; i < valuesarray.length; i++){
                 
@@ -344,7 +381,7 @@ public class Mainpage extends javax.swing.JFrame {
                                
                 for (int j = 0; j < valuesarray.length; j++){                    
                     double convertedvalue = (Double.parseDouble(valuesarray[i])/Double.parseDouble(valuesarray[j])) ;
-                    
+
                      jTable2.setValueAt(df.format(convertedvalue), i, j+1);
                    
                 }             
@@ -352,7 +389,8 @@ public class Mainpage extends javax.swing.JFrame {
            
             
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE); 
+           
+            JOptionPane.showMessageDialog(rootPane, "Currency Collide \n The Selected Value Found a Duplicate in the List", "Warning", JOptionPane.WARNING_MESSAGE); 
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -480,10 +518,12 @@ public class Mainpage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JList jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -492,6 +532,7 @@ public class Mainpage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;

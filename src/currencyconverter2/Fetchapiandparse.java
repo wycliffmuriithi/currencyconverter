@@ -6,6 +6,7 @@ package currencyconverter2;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -76,7 +77,7 @@ public class Fetchapiandparse {
             buf.close();
             ips.close();
             result = sb.toString();
-            
+        
         } catch (Exception e){
             e.printStackTrace();
     }
@@ -88,7 +89,7 @@ public class Fetchapiandparse {
      *
      * @param respo
      */
-    public static void GroupResult(String respo) throws FileNotFoundException, UnsupportedEncodingException{
+    public static void GroupResult(String respo) throws FileNotFoundException, UnsupportedEncodingException, IOException{
         JSONObject myjson;
         try 
         {
@@ -101,9 +102,10 @@ public class Fetchapiandparse {
             sdf.setTimeZone(TimeZone.getTimeZone("GMT+3"));
             String formatteddate = sdf.format(stamptimedate);
             PrintWriter writer = new PrintWriter("currencies.txt","UTF-8");
+            PrintWriter permwriter = new PrintWriter(new FileWriter("timestamped.txt",true));
             writer.println("Time Stamp: " +formatteddate);          
-            
-           
+            permwriter.println("Time Stamp: " +formatteddate);
+                    
             JSONObject mykeys = (JSONObject) myjson.get("rates");
             Iterator keysToDisplay = mykeys.keys();
             
@@ -126,26 +128,30 @@ public class Fetchapiandparse {
                    
                }else if (!"KES".equals(keysArray[i])){
                     writer.print(keysArray[i]+": ");
-                    
+                    permwriter.print(keysArray[i]+": ");
                     try{
                         Double currencyvalue = (Double)mykeys.get(keysArray[i]);
                         Double divisionvalue = (Double)mykeys.get("KES");
                         Double exchangerate = divisionvalue / currencyvalue;
                         writer.println(df.format(exchangerate));
+                        permwriter.println(df.format(exchangerate));
                     }catch (Exception ex){                        
                         Integer currencyvalue = (Integer)mykeys.get(keysArray[i]);
                         Double divisionvalue = (Double)mykeys.get("KES");
                         Double exchangerate = (divisionvalue) / currencyvalue;
                         writer.println(df.format(exchangerate));
+                        permwriter.println(df.format(exchangerate));
                     }
                 }else{
-                    writer.print("USD: ");                    
-                    writer.println( df.format((Double)mykeys.get(keysArray[i])));                    
+                    writer.print("USD: "); 
+                    permwriter.print("USD; ");
+                    writer.println( df.format((Double)mykeys.get(keysArray[i]))); 
+                    permwriter.println( df.format((Double)mykeys.get(keysArray[i])));
                 }
             }
             
             writer.close();
-            
+            permwriter.close();
         } 
         catch (JSONException e) {
             e.printStackTrace();
@@ -184,6 +190,8 @@ public class Fetchapiandparse {
             request.setURI(new URI(host));
             HttpResponse response = client.execute(request);
             return true;
+        }catch(SocketTimeoutException ex){
+            return false;
         }catch (Exception ex){
             return false;
         }
