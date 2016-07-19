@@ -7,30 +7,21 @@ package currencyconverter2;
 import static currencyconverter2.Fetchapiandparse.GroupResult;
 import static currencyconverter2.Fetchapiandparse.sendRequest;
 import static currencyconverter2.Fetchapiandparse.pingURL;
-import static currencyconverter2.Fetchapiandparse.parseCurrencies;
-import static java.awt.image.ImageObserver.WIDTH;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
-import javax.swing.WindowConstants;
-import javax.swing.event.ListSelectionListener;
+
 
 /**
  *

@@ -1,2 +1,2 @@
-Time Stamp: 2016-07-18 18:10:02 GMT+03:00
-CNY Chinese Yuan,
+Time Stamp: 2016-07-19 16:00:58 GMT+03:00
+SHP Saint Helena Pound,KGS Kyrgystani Som,BTN Bhutanese Ngultrum,DJF Djiboutian Franc,MOP Macanese Pataca,TTD Trinidad and Tobago Dollar,RON Romanian Leu,CNY Chinese Yuan,JPY Japanese Yen,BTC Bitcoin,UGX Ugandan Shilling,
